@@ -1,0 +1,167 @@
+<section class="intro d-flex align-items-center py-5 bg-light">
+    <div class="container">
+      <h1 class="text-center mb-4">Employee List</h1>
+  
+      <button
+        class="btn btn-primary rounded-3 float-end mb-3 shadow-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#employeeModal"
+        type="button"
+      >
+        + Add Employee
+      </button>
+  
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="table-responsive bg-white rounded-3 shadow-sm p-3">
+            <table class="table table-hover align-middle">
+              <thead class="table-primary text-uppercase">
+                <tr>
+                  <th scope="col">Employee Name</th>
+                  <th scope="col">Contact No</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of employeeList; let i = index">
+                  <th scope="row" class="text-primary">{{ item.name }}</th>
+                  <td>{{ item.contact }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.address }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Modal -->
+  <div
+    #employeeModal
+    class="modal fade"
+    id="employeeModal"
+    tabindex="-1"
+    aria-labelledby="employeeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="employeeModalLabel">Add Employee</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="employeeForm" (ngSubmit)="submit()">
+            <!-- Employee Name -->
+            <div class="form-floating mb-3">
+              <input
+                formControlName="name"
+                type="text"
+                class="form-control"
+                id="employeeName"
+                placeholder="Employee Name"
+              />
+              <label for="employeeName">Employee Name</label>
+              <div
+                *ngIf="
+                  employeeForm.get('name')?.invalid &&
+                  employeeForm.get('name')?.touched
+                "
+                class="text-danger small mt-1"
+              >
+                Please enter a valid name.
+              </div>
+            </div>
+  
+            <!-- Contact No -->
+            <div class="form-floating mb-3">
+              <input
+                formControlName="contact"
+                type="text"
+                class="form-control"
+                id="contactNo"
+                placeholder="Contact No"
+              />
+              <label for="contactNo">Contact No</label>
+              <div
+                *ngIf="
+                  employeeForm.get('contact')?.invalid &&
+                  employeeForm.get('contact')?.touched
+                "
+                class="text-danger small mt-1"
+              >
+                Please enter a valid contact number.
+              </div>
+            </div>
+  
+            <!-- Email -->
+            <div class="form-floating mb-3">
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Email"
+              />
+              <label for="email">Email</label>
+              <div
+                *ngIf="
+                  employeeForm.get('email')?.invalid &&
+                  employeeForm.get('email')?.touched
+                "
+                class="text-danger small mt-1"
+              >
+                Please enter a valid email address.
+              </div>
+            </div>
+  
+            <!-- Address -->
+            <div class="form-floating mb-3">
+              <input
+                formControlName="address"
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Address"
+              />
+              <label for="address">Address</label>
+              <div
+                *ngIf="
+                  employeeForm.get('address')?.invalid &&
+                  employeeForm.get('address')?.touched
+                "
+                class="text-danger small mt-1"
+              >
+                Please enter a valid address.
+              </div>
+            </div>
+  
+            <button
+              type="submit"
+              class="btn btn-success w-100"
+              [disabled]="employeeForm.invalid"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
